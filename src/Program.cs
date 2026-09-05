@@ -1,5 +1,5 @@
-// Change-Label Corretor (clc) — re-versiona transportes do One Identity Manager.
-// Port C# do clc.ps1. Algoritmo da assinatura extraído de VI.Transport.Base.dll
+// Transpose — re-versiona transportes do One Identity Manager.
+// Port C# do transpose.ps1. Algoritmo da assinatura extraído de VI.Transport.Base.dll
 // (Transport::CreateFileCRC / _SetFileComments / LoadFileCRC):
 //   Signature = 0xDEADBEEF XOR CRC32(cada entrada do zip), hex maiúsculo sem padding,
 //   gravada como última linha do comentário EOCD do zip.
@@ -45,11 +45,11 @@ static class Cli
     static int Usage()
     {
         Console.WriteLine("""
-            Change-Label Corretor (clc) — re-versiona transportes do One Identity Manager
+            Transpose — re-versiona transportes do One Identity Manager
 
             Uso:
-              clc inspect  <transporte.zip>
-              clc retarget <transporte.zip> --to <versao> [opcoes]
+              transpose inspect  <transporte.zip>
+              transpose retarget <transporte.zip> --to <versao> [opcoes]
 
             Opcoes do retarget:
               --to <versao>              versao alvo (ex.: 9.3, 10.0)  [obrigatoria]

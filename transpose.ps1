@@ -1,6 +1,6 @@
 ﻿<#
 .SYNOPSIS
-  Change-Label Corretor (clc) — re-versiona transportes do One Identity Manager.
+  Transpose — re-versiona transportes do One Identity Manager.
 
 .DESCRIPTION
   Permite importar um transporte exportado numa versao do OIM (ex.: 9.2) em uma
@@ -12,9 +12,9 @@
        Transport::CreateFileCRC / _SetFileComments / LoadFileCRC)
 
 .EXAMPLE
-  pwsh -File clc.ps1 inspect  .\Transport_....zip
-  pwsh -File clc.ps1 retarget .\Transport_....zip -To 9.3
-  pwsh -File clc.ps1 retarget .\Transport_....zip -To 10.0 -Out .\saida.zip
+  pwsh -File transpose.ps1 inspect  .\Transport_....zip
+  pwsh -File transpose.ps1 retarget .\Transport_....zip -To 9.3
+  pwsh -File transpose.ps1 retarget .\Transport_....zip -To 10.0 -Out .\saida.zip
 #>
 param(
     [Parameter(Mandatory, Position = 0)][ValidateSet('inspect', 'retarget')][string]$Command,

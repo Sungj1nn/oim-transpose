@@ -1,4 +1,6 @@
-# Change-Label Corretor (clc)
+# Transpose
+
+*A mesma carga, em outra tonalidade.*
 
 Re-versiona transportes / change labels do One Identity Manager para permitir
 importar um export de uma versão (ex.: 9.2) em uma base de versão diferente
@@ -7,17 +9,17 @@ aceitar sem erro de integridade.
 
 Duas formas de usar, com comportamento idêntico:
 
-- **`dist\clc.exe`** — executável único autocontido (win-x64, ~64 MB, não
+- **`dist\transpose.exe`** — executável único autocontido (win-x64, ~64 MB, não
   precisa de .NET instalado). Recompilar: `dotnet publish -c Release -o dist`
   dentro de `src\`.
-- **`clc.ps1`** — script para **Windows PowerShell 5.1** (nativo do Windows) e
+- **`transpose.ps1`** — script para **Windows PowerShell 5.1** (nativo do Windows) e
   **PowerShell 7**, nenhuma instalação necessária.
 
 ## Uso (exe)
 
 ```powershell
-clc inspect  .\Transport_....zip
-clc retarget .\Transport_....zip --to 9.3 [--out saida.zip] [--dry-run]
+transpose inspect  .\Transport_....zip
+transpose retarget .\Transport_....zip --to 9.3 [--out saida.zip] [--dry-run]
              [--module-versions "DPR=9.3.0.12,QBM=9.3.0.15"] [--keep-module-versions]
 ```
 
@@ -25,13 +27,13 @@ clc retarget .\Transport_....zip --to 9.3 [--out saida.zip] [--dry-run]
 
 ```powershell
 # ver o que tem dentro (versao, modulos, assinatura):
-powershell -File clc.ps1 inspect .\Transport_MSSQL_SERVIDOR_BASE_20260824.zip
+powershell -File transpose.ps1 inspect .\Transport_MSSQL_SERVIDOR_BASE_20260824.zip
 
 # simular sem gravar nada:
-powershell -File clc.ps1 retarget .\Transport_....zip -To 9.3 -DryRun
+powershell -File transpose.ps1 retarget .\Transport_....zip -To 9.3 -DryRun
 
 # gerar o zip re-versionado (o original nunca e alterado):
-powershell -File clc.ps1 retarget .\Transport_....zip -To 9.3
+powershell -File transpose.ps1 retarget .\Transport_....zip -To 9.3
 # -> gera Transport_..._retarget_9.3.zip
 ```
 

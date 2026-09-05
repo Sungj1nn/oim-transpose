@@ -1,4 +1,4 @@
-# Change-Label Corretor — Plano de Implementação
+# Transpose — Plano de Implementação
 
 Ferramenta CLI para "re-versionar" pacotes de transporte do One Identity Manager
 (change labels / transportes exportados pelo Database Transporter), permitindo
@@ -75,11 +75,11 @@ OIM é Windows/.NET; (3) exe único sem runtime pra distribuir a colegas.
 Comandos:
 
 ```
-clc inspect  <transporte.zip>
+transpose inspect  <transporte.zip>
     → mostra versão, módulos, parâmetros do header, Signature, e valida
       consistência (Transport.xml × comentário do zip)
 
-clc retarget <transporte.zip> --to 9.3 [--out <saida.zip>] [--module-versions 9.3.0.xxx]
+transpose retarget <transporte.zip> --to 9.3 [--out <saida.zip>] [--module-versions 9.3.0.xxx]
     → 1. edita Version no Transport.xml (in-place na entrada do zip)
       2. reescreve o comentário do zip com o Version novo
       3. recalcula e grava a Signature
@@ -123,7 +123,7 @@ drag-and-drop do zip. Decidir quando o CLI estiver provado em campo.
   do zip)`, formatada em hex maiúsculo sem padding. Comentário gerado por
   `_SetFileComments` (título + `Nome=Valor` CRLF + `Signature=` sem newline
   final); validado por `LoadFileCRC` no import.
-- **Fase 1 MVP ENTREGUE**: `clc.ps1` (PowerShell 7) com `inspect` e `retarget`.
+- **Fase 1 MVP ENTREGUE**: `transpose.ps1` (PowerShell 7) com `inspect` e `retarget`.
   Testado no transporte real 9.2: assinatura calculada bate com a original e o
   retarget 9.2→9.3 regenera XML + comentário + assinatura consistentes.
 - **Fase 2 (módulos + dry-run) ENTREGUE**: regras de validação do import
@@ -138,20 +138,20 @@ drag-and-drop do zip. Decidir quando o CLI estiver provado em campo.
   Por isso o `retarget` agora reescreve também o Major.Minor de `<Modules>`
   (default), aceita `-ModuleVersions "DPR=9.3.0.12,..."` para versões exatas,
   `-KeepModuleVersions` para não mexer, e `-DryRun` para pré-visualizar.
-- **Compatibilidade PS 5.1**: `clc.ps1` agora roda no Windows PowerShell 5.1
+- **Compatibilidade PS 5.1**: `transpose.ps1` agora roda no Windows PowerShell 5.1
   nativo (CRCs lidos direto do central directory do zip; arquivo salvo com BOM
   UTF-8; sem sufixos numéricos do PS7). Testado nas duas versões com
   assinaturas idênticas. `README.md` criado para distribuição a colegas.
-- **Port C# ENTREGUE**: `src/` (net8.0) → `dist/clc.exe` autocontido win-x64
+- **Port C# ENTREGUE**: `src/` (net8.0) → `dist/transpose.exe` autocontido win-x64
   (~64 MB, sem dependência de .NET na máquina destino). Mesma CLI com flags
   `--to/--out/--module-versions/--keep-module-versions/--dry-run`. Paridade
-  validada contra o clc.ps1 (assinaturas idênticas no mesmo input).
+  validada contra o transpose.ps1 (assinaturas idênticas no mesmo input).
 - Pendente: teste de import real numa base QAS 9.3 (validação de campo);
   XML avulso (change label puro).
 
 ## 5. Próximo passo imediato
 
-Testar o import de um zip re-versionado (`clc.ps1 retarget ... -To 9.3`) numa
+Testar o import de um zip re-versionado (`transpose.ps1 retarget ... -To 9.3`) numa
 base QAS da versão alvo, observando o comportamento do Database Transporter /
 Designer. Se aprovado, seguir para a Fase 2 (module versions, XML avulso,
 dry-run/batch).
