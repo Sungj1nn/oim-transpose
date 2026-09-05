@@ -1,0 +1,10 @@
+# Build .NET
+bin/
+obj/
+*.user
+
+# Binario publicado (~64 MB) — distribuir via GitHub Releases, nao no historico
+dist/
+
+# Transportes de cliente: nunca versionar (contem nomes de servidor/base/usuario)
+*.zip
